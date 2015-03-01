@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'war'
+
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    maven {
+        url ='http://nexus.gtan.com/content/groups/public'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.primefaces:primefaces:5.1'
+    providedCompile 'javax:javaee-api:7.0'
+}
