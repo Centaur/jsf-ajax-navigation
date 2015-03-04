@@ -46,6 +46,24 @@
         </h:inputText>
         <h:outputText id="out" value="#{hello.name}"/>
     </h:form>
+
+    <h:form id="allLinks">
+        <ui:repeat value="#{hello.partials}" var="partial">
+            <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}"
+                           styleClass="#{partial == hello.currentPartial ? 'ui-state-active' : ''}"
+                    pt:attr="#{component.clientId}">
+                <f:ajax render="include #{hello.oldLinkId}"/>
+                <f:event type="postAddToView" listener="#{hello.rememberOldLinkId}"/>
+            </h:commandLink>
+
+            <p/>
+        </ui:repeat>
+    </h:form>
+
+    <p/>
+    <h:panelGroup id="include">
+        <ui:include src="#{hello.currentPartial}"/>
+    </h:panelGroup>
 </h:body>
 
 </html>
