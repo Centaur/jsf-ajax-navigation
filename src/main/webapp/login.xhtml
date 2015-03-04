@@ -37,7 +37,6 @@
 
 
     <h:form id="allLinks">
-
         <c:forEach items="#{hello.partials}" var="partial" varStatus="loop">
             <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}" id="link_#{loop.index}"
                            styleClass="#{partial == hello.currentPartial ? 'ui-state-active' : ''}">
@@ -51,6 +50,13 @@
     <h:panelGroup id="include">
         <ui:include src="#{hello.currentPartial}"/>
     </h:panelGroup>
+
+    <p/>
+    <h:form>
+    <h:commandButton value="Add Patial" action="#{hello.appendPartial('partial3.xhtml')}">
+        <f:ajax render="allLinks"/>
+    </h:commandButton>
+    </h:form>
 </h:body>
 
 </html>

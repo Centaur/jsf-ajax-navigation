@@ -4,25 +4,27 @@ package com.gtan.ee;
 
 import org.omnifaces.util.Ajax;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @ManagedBean
 @ViewScoped
 public class Hello {
-    private String[] partials = new String[]{"partial1.xhtml", "partial2.xhtml", "partial3.xhtml"};
+    private List<String> partials = new ArrayList<>(Arrays.asList("partial1.xhtml", "partial2.xhtml"));
     private String oldLinkId;
-    public String[] getPartials() {
+    public List<String> getPartials() {
         return partials;
     }
     private String currentPartial;
+    public void appendPartial(String newPartial) {
+        partials.add(newPartial);
+    }
     public void setCurrentPartial(String currentPartial) {
         oldLinkId = UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getClientId();
         this.currentPartial = currentPartial;
