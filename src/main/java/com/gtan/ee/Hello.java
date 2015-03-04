@@ -1,63 +1,37 @@
 package com.gtan.ee;
 
 
-import org.omnifaces.util.Components;
+
+import org.omnifaces.util.Ajax;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
-import java.util.logging.Logger;
 
-@Named
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class Hello {
-    static Logger logger = Logger.getLogger(Hello.class.getName());
-
-    String name = "xiefei";
-
-    private String[] partials = new String[]{"partial1.xhtml", "partial2.xhtml"};
+    private String[] partials = new String[]{"partial1.xhtml", "partial2.xhtml", "partial3.xhtml"};
     private String oldLinkId;
-
-
-    public String getOldLinkId() {
-        return oldLinkId;
-    }
-
-    public void setOldLinkId(String oldLinkId) {
-        this.oldLinkId = oldLinkId;
-    }
-
     public String[] getPartials() {
         return partials;
     }
-
-    private String currentPartial = "partial1.xhtml";
-
-    public String getName() {
-        logger.fine("text get");
-        return name;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void log() {
-        logger.fine("text changed");
-    }
-
+    private String currentPartial;
     public void setCurrentPartial(String currentPartial) {
+        oldLinkId = UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getClientId();
         this.currentPartial = currentPartial;
     }
-
     public String getCurrentPartial() {
         return currentPartial;
     }
-
-    public void rememberOldLinkId(ComponentSystemEvent event) throws AbortProcessingException{
-        oldLinkId = ((UIComponent)event.getSource()).getClientId();
+    public void renderOldLink(AjaxBehaviorEvent event){
+        if(oldLinkId != null)
+            Ajax.update(oldLinkId);
     }
 }

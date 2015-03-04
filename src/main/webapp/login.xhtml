@@ -23,41 +23,28 @@
 </h:head>
 
 <h:body>
-    <div jsf:id="x">
-        <ui:fragment rendered="#{hello.name.length()>10}">
-            <h:outputText value="#{hello.name}" id="name"/>
-        </ui:fragment>
-    </div>
 
-    <p:editor/>
-    <p:accordionPanel>
-        <p:tab title="First Tab">
-            <h:outputText value="hehehe"/>
-        </p:tab>
-        <p:tab title="Second Tab">
-            <h:outputText value="wakaka"/>
-        </p:tab>
-    </p:accordionPanel>
+    <!--<p:editor/>-->
+    <!--<p:accordionPanel>-->
+        <!--<p:tab title="First Tab">-->
+            <!--<h:outputText value="hehehe"/>-->
+        <!--</p:tab>-->
+        <!--<p:tab title="Second Tab">-->
+            <!--<h:outputText value="wakaka"/>-->
+        <!--</p:tab>-->
+    <!--</p:accordionPanel>-->
 
 
-    <h:form>
-        <h:inputText id="input" value="#{hello.name}">
-            <f:ajax event="keyup" render="x out" listener="#{hello.log}"/>
-        </h:inputText>
-        <h:outputText id="out" value="#{hello.name}"/>
-    </h:form>
 
     <h:form id="allLinks">
-        <ui:repeat value="#{hello.partials}" var="partial">
-            <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}"
-                           styleClass="#{partial == hello.currentPartial ? 'ui-state-active' : ''}"
-                    pt:attr="#{component.clientId}">
-                <f:ajax render="include #{hello.oldLinkId}"/>
-                <f:event type="postAddToView" listener="#{hello.rememberOldLinkId}"/>
-            </h:commandLink>
 
+        <c:forEach items="#{hello.partials}" var="partial" varStatus="loop">
+            <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}" id="link_#{loop.index}"
+                           styleClass="#{partial == hello.currentPartial ? 'ui-state-active' : ''}">
+                <f:ajax render="@this include" listener="#{hello.renderOldLink}"/>
+            </h:commandLink>
             <p/>
-        </ui:repeat>
+        </c:forEach>
     </h:form>
 
     <p/>
