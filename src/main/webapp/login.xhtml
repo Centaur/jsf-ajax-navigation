@@ -26,24 +26,29 @@
 
     <!--<p:editor/>-->
     <!--<p:accordionPanel>-->
-        <!--<p:tab title="First Tab">-->
-            <!--<h:outputText value="hehehe"/>-->
-        <!--</p:tab>-->
-        <!--<p:tab title="Second Tab">-->
-            <!--<h:outputText value="wakaka"/>-->
-        <!--</p:tab>-->
+    <!--<p:tab title="First Tab">-->
+    <!--<h:outputText value="hehehe"/>-->
+    <!--</p:tab>-->
+    <!--<p:tab title="Second Tab">-->
+    <!--<h:outputText value="wakaka"/>-->
+    <!--</p:tab>-->
     <!--</p:accordionPanel>-->
 
 
-
     <h:form id="allLinks">
-        <c:forEach items="#{hello.partials}" var="partial" varStatus="loop">
-            <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}" id="link_#{loop.index}"
-                           styleClass="#{partial == hello.currentPartial ? 'ui-state-active' : ''}">
-                <f:ajax render="@this include" listener="#{hello.renderOldLink}"/>
-            </h:commandLink>
-            <p/>
-        </c:forEach>
+        <ul>
+            <c:forEach items="#{hello.partials}" var="partial" varStatus="loop">
+                <li jsf:id="parent_#{loop.index}">
+                    <h:outputText rendered="#{partial.equals(hello.currentPartial)}" value="#{partial}"
+                                  styleClass="ui-state-active"/>
+                    <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}"
+                                   rendered="#{!partial.equals(hello.currentPartial)}">
+                        <f:ajax render="include" listener="#{hello.renderFragments}"/>
+                    </h:commandLink>
+                </li>
+                <p/>
+            </c:forEach>
+        </ul>
     </h:form>
 
     <p/>
@@ -53,10 +58,11 @@
 
     <p/>
     <h:form>
-    <h:commandButton value="Add Patial" action="#{hello.appendPartial('partial3.xhtml')}">
-        <f:ajax render="allLinks"/>
-    </h:commandButton>
+        <h:commandButton value="Add Patial" action="#{hello.appendPartial('partial3.xhtml')}">
+            <f:ajax render="allLinks"/>
+        </h:commandButton>
     </h:form>
+    <ui:debug/>
 </h:body>
 
 </html>
