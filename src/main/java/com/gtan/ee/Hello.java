@@ -32,6 +32,11 @@ public class Hello {
     public String getCurrentPartial() {
         return currentPartial;
     }
+
+    /**
+     * ajax listener runs before action
+     * @param event
+     */
     public void renderFragments(AjaxBehaviorEvent event){
         if(oldParentId != null)
             Ajax.update(oldParentId);
