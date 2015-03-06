@@ -41,9 +41,11 @@
                 <li jsf:id="parent_#{loop.index}">
                     <h:outputText rendered="#{partial.equals(hello.currentPartial)}" value="#{partial}"
                                   styleClass="ui-state-active"/>
-                    <h:commandLink value="#{partial}" action="#{hello.setCurrentPartial(partial)}"
+                    <h:commandLink value="#{partial}"
+                                   actionListener="#{hello.renderFragments}"
+                                   action="#{hello.setCurrentPartial(partial)}"
                                    rendered="#{!partial.equals(hello.currentPartial)}">
-                        <f:ajax render="include" listener="#{hello.renderFragments}"/>
+                        <f:ajax render="include" />
                     </h:commandLink>
                 </li>
                 <p/>

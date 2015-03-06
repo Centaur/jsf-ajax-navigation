@@ -7,6 +7,7 @@ import org.omnifaces.util.Components;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,10 +35,10 @@ public class Hello {
     }
 
     /**
-     * ajax listener runs before action
+     * actionListener runs before action
      * @param event
      */
-    public void renderFragments(AjaxBehaviorEvent event){
+    public void renderFragments(ActionEvent event){
         if(oldParentId != null)
             Ajax.update(oldParentId);
         Ajax.update(event.getComponent().getParent().getClientId());
