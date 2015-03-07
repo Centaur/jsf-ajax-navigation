@@ -49,9 +49,12 @@
 
     <p/>
     <h:form>
-        <h:commandButton value="Add Patial" action="#{hello.appendPartial('partial3.xhtml')}">
-            <f:ajax render="allLinks"/>
-        </h:commandButton>
+        <h:panelGroup id="onceButton">
+            <h:commandButton value="Add Patial" action="#{hello.appendPartial('partial3.xhtml')}"
+                             rendered="#{not hello.partial3Appended}">
+                <f:ajax render="allLinks onceButton"/>
+            </h:commandButton>
+        </h:panelGroup>
         <o:commandScript name="updatePartialView" render=":include :allLinks" action="#{hello.updatePartialView}"/>
     </h:form>
 
@@ -59,12 +62,14 @@
         window.onhashchange = function () {
             updatePartialView({hash: location.hash});
         };
-        window.onload = function(){
-            if(location.hash) {
+        window.onload = function () {
+            if (location.hash) {
                 updatePartialView({hash: location.hash});
             }
         }
     </script>
+
+
 </h:body>
 
 </html>

@@ -28,6 +28,7 @@ public class Hello {
     public void appendPartial(String newPartial) {
         partials.add(newPartial);
     }
+
     public void setCurrentPartial(String currentPartial) {
         oldParentId = Components.getCurrentComponent().getParent().getClientId();
         this.currentPartial = currentPartial;
@@ -51,5 +52,10 @@ public class Hello {
     public void updatePartialView() {
         this.currentPartial = Faces.getRequestParameter("hash").substring(1);
     }
+
+    public boolean isPartial3Appended() {
+        return partials.contains("partial3.xhtml");
+    }
+
 
 }
