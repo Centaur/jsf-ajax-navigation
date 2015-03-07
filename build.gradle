@@ -7,9 +7,6 @@ sourceCompatibility = 1.8
 version = '1.0'
 
 repositories {
-    maven {
-        url ='http://nexus.gtan.com/content/groups/public'
-    }
     mavenCentral()
 }
 
