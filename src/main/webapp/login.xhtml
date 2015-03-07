@@ -12,6 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
@@ -34,6 +35,8 @@
     <!--</p:tab>-->
     <!--</p:accordionPanel>-->
 
+    <!--<h:outputScript id="historyManager">-->
+    <!--</h:outputScript>-->
 
     <h:form id="allLinks">
         <ul>
@@ -64,7 +67,7 @@
             <f:ajax render="allLinks"/>
         </h:commandButton>
     </h:form>
-    <ui:debug/>
+
 </h:body>
 
 </html>

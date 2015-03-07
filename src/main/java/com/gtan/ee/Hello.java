@@ -7,6 +7,7 @@ import org.omnifaces.util.Components;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class Hello {
     public void setCurrentPartial(String currentPartial) {
         oldParentId = Components.getCurrentComponent().getParent().getClientId();
         this.currentPartial = currentPartial;
+        Ajax.oncomplete("window.location.hash='"+ currentPartial +"'");
     }
     public String getCurrentPartial() {
         return currentPartial;
@@ -41,6 +43,8 @@ public class Hello {
     public void renderFragments(ActionEvent event){
         if(oldParentId != null)
             Ajax.update(oldParentId);
-        Ajax.update(event.getComponent().getParent().getClientId());
+        UIComponent trigger = event.getComponent();
+        Ajax.update(trigger.getParent().getClientId());
     }
+
 }
