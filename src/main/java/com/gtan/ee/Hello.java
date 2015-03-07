@@ -4,6 +4,7 @@ package com.gtan.ee;
 
 import org.omnifaces.util.Ajax;
 import org.omnifaces.util.Components;
+import org.omnifaces.util.Faces;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -45,6 +46,10 @@ public class Hello {
             Ajax.update(oldParentId);
         UIComponent trigger = event.getComponent();
         Ajax.update(trigger.getParent().getClientId());
+    }
+
+    public void updatePartialView() {
+        this.currentPartial = Faces.getRequestParameter("hash").substring(1);
     }
 
 }

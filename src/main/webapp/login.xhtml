@@ -42,13 +42,13 @@
         <ul>
             <c:forEach items="#{hello.partials}" var="partial" varStatus="loop">
                 <li jsf:id="parent_#{loop.index}">
-                    <h:outputText rendered="#{partial.equals(hello.currentPartial)}" value="#{partial}"
+                    <h:outputText rendered="#{partial == hello.currentPartial}" value="#{partial}"
                                   styleClass="ui-state-active"/>
                     <h:commandLink value="#{partial}"
                                    actionListener="#{hello.renderFragments}"
                                    action="#{hello.setCurrentPartial(partial)}"
-                                   rendered="#{!partial.equals(hello.currentPartial)}">
-                        <f:ajax render="include" />
+                                   rendered="#{partial != hello.currentPartial}">
+                        <f:ajax render="include"/>
                     </h:commandLink>
                 </li>
                 <p/>
@@ -66,8 +66,19 @@
         <h:commandButton value="Add Patial" action="#{hello.appendPartial('partial3.xhtml')}">
             <f:ajax render="allLinks"/>
         </h:commandButton>
+        <o:commandScript name="updatePartialView" render=":include :allLinks" action="#{hello.updatePartialView}"/>
     </h:form>
 
+    <script type="text/javascript">
+        window.onhashchange = function () {
+            updatePartialView({hash: location.hash});
+        };
+        window.onload = function(){
+            if(location.hash) {
+                updatePartialView({hash: location.hash});
+            }
+        }
+    </script>
 </h:body>
 
 </html>
